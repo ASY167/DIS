@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify OTP</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/verifyOtp.css' %}">
+    <script src="{% static 'js/verifyOtp.js' %}" defer></script>
+</head>
+<body>
+    <div class="main-container">
+        <div class="form-container">
+            <!-- Step Indicator -->
+            <div class="step-indicator">
+                <span class="step completed">1</span>
+                <span class="step active">2</span>
+                <span class="step">3</span>
+            </div>
+
+            <form id="verifyForm" method="POST">
+                {% csrf_token %}
+                <h2>Verify OTP</h2>
+                <p>We emailed a 6-digit verification code to your registered email. Please enter it below to continue.</p>
+
+                <div class="otp-div">
+                    <input type="text" maxlength="1" class="otp" name="otp[]" onkeyup="moveToNext(this, 'b')" id="a" required>
+                    <input type="text" maxlength="1" class="otp" name="otp[]" onkeyup="moveToNext(this, 'c')" id="b" required>
+                    <input type="text" maxlength="1" class="otp" name="otp[]" onkeyup="moveToNext(this, 'd')" id="c" required>
+                    <input type="text" maxlength="1" class="otp" name="otp[]" onkeyup="moveToNext(this, 'e')" id="d" required>
+                    <input type="text" maxlength="1" class="otp" name="otp[]" onkeyup="moveToNext(this, 'f')" id="e" required>
+                    <input type="text" maxlength="1" class="otp" name="otp[]" id="f" required>
+                </div>
+
+                <div id="error-message" style="display: none;">Invalid OTP. Please try again.</div>
+
+                <button type="submit">Submit OTP</button>
+
+                <div class="foot-note">
+                    Didn't receive the code? Check your spam folder or 
+                    <a href="{% url 'verifyOtpPassword_page' %}">resend</a>.
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

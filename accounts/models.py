@@ -6,6 +6,7 @@ class CustomUser(AbstractUser):
     is_email_verified = models.BooleanField(default=False)
     failed_login_attempts = models.IntegerField(default=0)
     is_locked = models.BooleanField(default=False)
+    bio = models.TextField(null=True, blank=True)
 
     def __str__(self):
         return self.username

@@ -1,0 +1,86 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f6f9;
+}
+
+nav {
+    background-color: #2d3e50;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+}
+
+.navbar .logout-btn {
+    background-color: #ff4d4f;
+    border: none;
+    padding: 0.5rem 1rem;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.navbar .logout-btn:hover {
+    background-color: #e60000;
+}
+
+.home-nav ul {
+    list-style: none;
+    display: flex;
+    gap: 1rem;
+    margin: 0;
+    padding: 0;
+}
+
+.home-nav a {
+    text-decoration: none;
+    color: white;
+    font-weight: 500;
+}
+
+.home-nav a.active,
+.home-nav a:hover {
+    text-decoration: underline;
+}
+
+.main-container {
+    display: flex;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.form-container {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    max-width: 500px;
+    width: 100%;
+    text-align: center;
+}
+
+.form-container h2 {
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+.form-container .btn {
+    display: inline-block;
+    margin: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.form-container .btn:hover {
+    background-color: #0056b3;
+}

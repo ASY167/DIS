@@ -1,0 +1,118 @@
+/* Global Styles 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+*/
+body {
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+h2 {
+    color: #333;
+    margin-bottom: 10px;
+}
+
+p {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+/* Form Container */
+.main-container {
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.form-container {
+    background-color: white;
+    max-width: 400px;
+    width: 100%;
+    padding: 40px 30px;
+    border-radius: 10px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* OTP Inputs */
+.otp-div {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.otp {
+    width: 45px;
+    height: 50px;
+    font-size: 1.5em;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.otp:focus {
+    border-color: #007bff;
+    background-color: #f0f8ff;
+    outline: none;
+}
+
+/* Submit Button */
+button {
+    width: 100%;
+    padding: 12px;
+    background-color: blue;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+/* Error Message */
+#error-message {
+    color: red;
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+/* Footnote */
+.foot-note {
+    margin-top: 20px;
+    font-size: 13px;
+    color: #888;
+}
+
+.foot-note a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.foot-note a:hover {
+    text-decoration: underline;
+}
+
+/* Mobile Responsive */
+@media (max-width: 600px) {
+    .form-container {
+        padding: 30px 20px;
+    }
+
+    .otp {
+        width: 40px;
+        height: 45px;
+    }
+}

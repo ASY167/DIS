@@ -4,35 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register Page</title>
+
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/register.css' %}">
     <script src="{% static 'js/register.js' %}" defer></script>
 </head>
 <body>
-    <nav>
-        <div class="navbar">
-          <a href="{% url 'login_page'%}"> <button class="logout-btn">Logout</button> </a> 
-        </div>
-            <div class="home-nav">
-                <ul>
-                    <li><a href="" class="active">Home</a></li>
-                    <li><a href="./profile.html">Profile</a></li>
-                </ul>
-            </div>
-    </nav>
     <div class="main-container">
         <div class="form-container">
             <form id="registerForm" method="POST">
                 {% csrf_token %}
                 <h2>Sign Up</h2>
-                <input type="text" id="username" placeholder=" Enter Username" required>
- <input type="email" id="email" placeholder="Enter your email" required>
-<input type="password" id="password" placeholder="Enter Password" required>
- <input type="password" id="Confirmpassword" placeholder="Confirm Password" required>
+                <input type="text" id="username" name="username" placeholder="Enter Username" required>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                <input type="password" id="password" name="password" placeholder="Enter Password" required>
+                <input type="password" id="Confirmpassword" name="Confirmpassword" placeholder="Confirm Password" required>
                 <button type="submit" id="signUpBtn">Sign Up</button>
             </form>
         </div>
     </div>
-    
 </body>
 </html>

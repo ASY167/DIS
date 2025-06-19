@@ -5,8 +5,8 @@ from django.contrib.auth import authenticate
 from django.core.mail import send_mail
 from .models import CustomUser, Profile, ActivityLog
 from .serializers import (
-    RegisterSerializer, UpdateUserProfileSerializer, ChangePasswordSerializer,
-    ResetPasswordRequestSerializer, ResetPasswordConfirmSerializer, LoginSerializer,
+    RegisterSerializer, UpdateUserProfileSerializer, UserProfileSerializer, ChangePasswordSerializer,
+    ResetPasswordRequestSerializer,VerifyOTPSerializer, SetNewPasswordSerializer, LoginSerializer,
     LogoutSerializer, LoginActivitySerializer, AuditLogSerializer
 )
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -105,6 +105,14 @@ class LoginUser(APIView):
             return x_forwarded_for.split(',')[0]
         return request.META.get('REMOTE_ADDR')
 
+class GetUserProfile(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        serializer = UserProfileSerializer(request.user)
+        return Response(serializer.data)
+
+
 class UpdateUserProfile(APIView):
     permission_classes = [IsAuthenticated]
 
@@ -148,24 +156,61 @@ class RequestPasswordReset(APIView):
                 return Response({"error": "User with this email does not exist"}, status=404)
         return Response(serializer.errors, status=400)
 
-
-class ConfirmPasswordReset(APIView):
+class CheckEmailAndSendOTP(APIView):
     permission_classes = [AllowAny]
 
     def post(self, request):
-        serializer = ResetPasswordConfirmSerializer(data=request.data)
+        email = request.data.get("email")
+        if not email:
+            return Response({"error": "Email is required"}, status=400)
+
+        try:
+            user = CustomUser.objects.get(email=email)
+            otp = pyotp.TOTP(user.totp_secret).now()
+
+            send_mail(
+                "Your Password Reset OTP",
+                f"Your OTP is: {otp}",
+                "noreply@example.com",
+                [user.email],
+                fail_silently=False,
+            )
+
+            return Response({"message": "OTP sent successfully."})
+        except CustomUser.DoesNotExist:
+            return Response({"error": "User with this email does not exist"}, status=404)
+class VerifyResetOTP(APIView):
+    permission_classes = [AllowAny]
+
+    def post(self, request):
+        serializer = VerifyOTPSerializer(data=request.data)
         if serializer.is_valid():
             try:
                 user = CustomUser.objects.get(email=serializer.validated_data['email'])
                 totp = pyotp.TOTP(user.totp_secret)
                 if totp.verify(serializer.validated_data['otp'], valid_window=1):
-                    user.set_password(serializer.validated_data['new_password'])
-                    user.save()
-                    return Response({"message": "Password reset successfully!"})
+                    return Response({"message": "OTP verified successfully"})
                 return Response({"error": "Invalid or expired OTP"}, status=400)
             except CustomUser.DoesNotExist:
                 return Response({"error": "User with this email does not exist"}, status=404)
         return Response(serializer.errors, status=400)
+
+# views.py
+class SetNewPassword(APIView):
+    permission_classes = [AllowAny]
+
+    def post(self, request):
+        serializer = SetNewPasswordSerializer(data=request.data)
+        if serializer.is_valid():
+            try:
+                user = CustomUser.objects.get(email=serializer.validated_data['email'])
+                user.set_password(serializer.validated_data['new_password'])
+                user.save()
+                return Response({"message": "Password reset successfully!"})
+            except CustomUser.DoesNotExist:
+                return Response({"error": "User with this email does not exist"}, status=404)
+        return Response(serializer.errors, status=400)
+
 class DeleteAccount(APIView):
     permission_classes = [IsAuthenticated]
 
@@ -174,7 +219,7 @@ class DeleteAccount(APIView):
         return Response({"message": "Account deleted successfully!"})
 # User Management Endpoints
 class Logout(APIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
 
     def post(self, request):
         serializer = LogoutSerializer(data=request.data)

@@ -15,11 +15,15 @@ class RegisterSerializer(serializers.ModelSerializer):
         )
         user.save()
         return user
+class UserProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CustomUser
+        fields = ['username', 'first_name', 'last_name', 'email', 'bio', 'date_joined']
 
 class UpdateUserProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
-        fields = ['username', 'email', 'first_name', 'last_name']
+        fields = ['username', 'first_name', 'last_name','email', 'bio', 'date_joined']
 
 class ChangePasswordSerializer(serializers.Serializer):
     old_password = serializers.CharField(required=True)
@@ -28,10 +32,14 @@ class ChangePasswordSerializer(serializers.Serializer):
 class ResetPasswordRequestSerializer(serializers.Serializer):
     email = serializers.EmailField()
 
-class ResetPasswordConfirmSerializer(serializers.Serializer):
+class VerifyOTPSerializer(serializers.Serializer):
     email = serializers.EmailField()
     otp = serializers.CharField()
+
+class SetNewPasswordSerializer(serializers.Serializer):
+    email = serializers.EmailField()
     new_password = serializers.CharField()
+
 
 class LoginSerializer(serializers.Serializer):
     username = serializers.CharField()

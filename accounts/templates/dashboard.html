@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+    <script src="{% static 'js/logout.js' %}" defer></script>
+    <script src="{% static 'js/dashboard.js' %}" defer></script>
+</head>
+<body>
+    <nav>
+        <div class="navbar">
+            <button id="logoutBtn" class="logout-btn">Logout</button>
+        </div>
+        <div class="home-nav">
+            <ul>
+                <li><a href="{% url 'dashboard_page' %}" class="active">Home</a></li>
+                <li><a href="{% url 'profile_page' %}">Profile</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="main-container">
+        <div class="form-container">
+            <h2>Welcome, <span id="usernameDisplay">{{ request.user.username }}</span></h2>
+            <p>Here you can manage your account, update your profile, and more.</p>
+            <a href="{% url 'profile_page' %}" class="btn">Go to Profile</a>
+            <a href="{% url 'editProfile_page' %}" class="btn">Edit Profile</a>
+            <a href="{% url 'viewLog_page' %}" class="btn">View Log Activities</a>
+            <a href="{% url 'ChangePassword_page' %}" class="btn">Change Password</a>
+        </div>
+    </div>
+</body>
+</html>

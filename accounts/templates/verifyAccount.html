@@ -6,41 +6,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Verify</title>
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/otp-style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/verifyAccount.css' %}">
     <script src="{% static 'js/verifyAccount.js' %}" defer></script>
 </head>
 <body>
-    <nav>
-        <div class="navbar">
-            <a href="{% url 'login_page'%}"> <button class="logout-btn">Logout</button> </a> 
-        </div>
-        <div class="home-nav">
-            <ul>
-                <li><a href="" class="active">Home</a></li>
-                <li><a href="./service/index.html">Profile</a></li>
-            </ul>
-        </div>
-    </nav>
-    <div class="container">
-        
-            <h1>Verify Your Account</h1>
-            <br>
-            <p>We mailed you a six-digit code to your registered email id. Please enter the code to verify your OTP.</p>
+    <div class="main-container">
+        <div class="form-container">
             <form id="verifyForm" method="POST">
+                <h2>Verify Your Account</h2>
+                <p>We sent a 6-digit verification code to your registered email. Please enter it below.</p>
                 {% csrf_token %}
                 <div class="otp-div">
-                    <input id="a" type="text" maxlength="1" class="otp" name="otp[]" onkeyup="moveToNext(this, 'b')" />
-                    <input id="b" type="text" maxlength="1" class="otp" name="otp[]" onkeyup="moveToNext(this, 'c')" />
-                    <input id="c" type="text" maxlength="1" class="otp" name="otp[]" onkeyup="moveToNext(this, 'd')" />
-                    <input id="d" type="text" maxlength="1" class="otp" name="otp[]" onkeyup="moveToNext(this, 'e')" />
-                    <input id="e" type="text" maxlength="1" class="otp" name="otp[]" onkeyup="moveToNext(this, 'f')" />
-                    <input id="f" type="text" maxlength="1" class="otp" name="otp[]" />
+                    <input type="text" maxlength="1" class="otp" name="otp[]" onkeyup="moveToNext(this, 'b')" id="a">
+                    <input type="text" maxlength="1" class="otp" name="otp[]" onkeyup="moveToNext(this, 'c')" id="b">
+                    <input type="text" maxlength="1" class="otp" name="otp[]" onkeyup="moveToNext(this, 'd')" id="c">
+                    <input type="text" maxlength="1" class="otp" name="otp[]" onkeyup="moveToNext(this, 'e')" id="d">
+                    <input type="text" maxlength="1" class="otp" name="otp[]" onkeyup="moveToNext(this, 'f')" id="e">
+                    <input type="text" maxlength="1" class="otp" name="otp[]" id="f">
                 </div>
-                <div id="error-message" style="display:none; color: red; margin-top: 10px;">
-                    Invalid OTP. Please try again.
-                </div>
-                <button type="submit" class="btn">Submit OTP</button>
-            </form>  
+                <div id="error-message" style="display: none;">Invalid OTP. Please try again.</div>
+                <button type="submit">Submit OTP</button>
+                <div class="foot-note">Didn't receive the code? Check your spam folder or <a href="{% url 'verify_page' %}">resend</a>.</div>
+            </form>
+        </div>
     </div>
 </body>
 </html>

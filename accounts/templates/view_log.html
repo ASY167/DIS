@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Login Activity</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/viewLog.css' %}">
+    <script src="{% static 'js/viewLog.js' %}" defer></script>
+    <script src="{% static 'js/logout.js' %}" defer></script>
+</head>
+<body>
+    <nav>
+        <div class="navbar">
+            <button id="logoutBtn" class="logout-btn">Logout</button> 
+        </div>
+        <div class="home-nav">
+            <ul>
+                <li><a href="{% url 'dashboard_page' %}" class="active">Home</a></li>
+                <li><a href="{% url 'profile_page' %}">Profile</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="main-container">
+        <div class="form-container">
+            <h2>User Login Activity</h2>
+            <div class="logs-info">
+                <!-- Log data will be injected here via JS -->
+                <p>Loading logs...</p>
+            </div>
+            <a href="{% url 'dashboard_page' %}" class="btn edit-btn">Go back to Dashboard</a>
+        </div>
+    </div>
+</body>
+</html>
